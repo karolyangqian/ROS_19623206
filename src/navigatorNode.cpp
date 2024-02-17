@@ -1,17 +1,33 @@
 #include "ros/ros.h"
 #include "tugas1/DronePos.h"
 #include "navigator.hpp"
+#include "tugas1/commandSRV.h"
+
+bool landCallback(tugas1::commandSRV::Request &req, tugas1::commandSRV::Response &resp) {
+    if (req.command == "land")
+    {
+        resp.response = "success"; 
+    }
+    else
+    {
+        resp.response = "failed";
+    }
+
+    return true;
+}
 
 int main(int argc, char**argv) {
     ros::init(argc,argv,"navigator");
 
     ros::NodeHandle nh;
     ros::Publisher data_publisher = nh.advertise<tugas1::DronePos>("drone_status", 1000, true);
+    ros::ServiceServer server = nh.advertiseService("command", landCallback);
 
-    ros::Rate loop_rate(100);
+    ros::Rate loop_rate(1);
 
     navigator navigator;
     navigator.setBounds({0, -1000, 0}, {1000, 0, 10});
+    navigator.transform({490, -490, 0});
 
     int count = 0;
 

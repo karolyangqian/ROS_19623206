@@ -148,13 +148,7 @@ add_executable(
   src/drone.cpp
   src/Vec3i.cpp
 )
-add_executable(
-  command_service 
-  src/commandService.cpp 
-  src/commander.cpp 
-  src/drone.cpp
-  src/Vec3i.cpp
-)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -166,12 +160,10 @@ add_executable(
 ## same as for the library above
 add_dependencies(commander ${commander_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(navigator ${navigator_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(command_service ${command_service_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(commander ${catkin_LIBRARIES})
 target_link_libraries(navigator ${catkin_LIBRARIES})
-target_link_libraries(command_service ${catkin_LIBRARIES})
 
 #############
 ## Install ##
